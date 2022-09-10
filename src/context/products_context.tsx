@@ -13,6 +13,7 @@ import {
 // import { featuredProducts, productData } from '../utils/productData'
 import { productDataType } from '../utils/productData'
 import { API_ENDPOINT, QUERY } from '../utils/constants'
+import DEFAULT_DATA from "../service/data.json"
 import axios from 'axios'
 
 export type initialStateType = {
@@ -73,18 +74,8 @@ export const ProductsProvider: React.FC = ({ children }) => {
   }
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      dispatch({ type: GET_PRODUCTS_BEGIN })
-      try {
-        const queryResult = await axios.post(API_ENDPOINT, { query: QUERY })
-        const result = queryResult.data.data.allProduct
-        dispatch({ type: GET_PRODUCTS_SUCCESS, payload: result })
-      } catch (error) {
-        console.log(error)
-        dispatch({ type: GET_PRODUCTS_ERROR })
-      }
-    }
-    fetchProducts()
+
+    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: DEFAULT_DATA?.data?.allProduct })
   }, [])
 
   return (
